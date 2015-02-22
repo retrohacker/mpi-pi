@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) {
   local_number_of_tosses = number_of_tosses/comm_sz;
   number_of_tosses = local_number_of_tosses * comm_sz;
   local_number_in_circle = Monte_carlo(local_number_of_tosses,my_rank);
-  MPI_Reduce(&local_number_in_circle,&number_in_circle,1,MPI_UNSIGNED_LONG_LONG,MPI_SUM,0,comm);
+  e(MPI_Reduce(&local_number_in_circle,&number_in_circle,1,MPI_UNSIGNED_LONG_LONG,MPI_SUM,0,comm));
   if(my_rank == 0) {
     pi_estimate = 4 * ((double) number_in_circle) / ((double) number_of_tosses);
     printf("Number of Tosses: %llu\nNumber in Circle: %llu\nPi is approx: %f\n",number_of_tosses,number_in_circle,pi_estimate);
